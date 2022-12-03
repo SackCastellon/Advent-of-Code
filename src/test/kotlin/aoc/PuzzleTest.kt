@@ -2,6 +2,7 @@ package aoc
 
 import aoc.year2022.Day01
 import aoc.year2022.Day02
+import aoc.year2022.Day03
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest.dynamicTest
@@ -10,7 +11,8 @@ import org.junit.jupiter.api.TestFactory
 internal class PuzzleTest {
     private val puzzles: List<TestCase<*, *>> = listOf(
         TestCase(Day01, answer1 = 65912, answer2 = 195625),
-        TestCase(Day02, answer1 = 12645, answer2 = 11756)
+        TestCase(Day02, answer1 = 12645, answer2 = 11756),
+        TestCase(Day03, answer1 = 7766, answer2 = 2415),
     )
 
     @TestFactory
