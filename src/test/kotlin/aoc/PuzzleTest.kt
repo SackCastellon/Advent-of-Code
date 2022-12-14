@@ -14,6 +14,7 @@ internal class PuzzleTest {
         TestCase(Day04, answer1 = 644, answer2 = 926),
         TestCase(Day05, answer1 = "ZRLJGSCTR", answer2 = "PRTTGRFPB"),
         TestCase(Day06, answer1 = 1109, answer2 = 3965),
+        TestCase(Day08, answer1 = 1669, answer2 = 0),
     )
 
     @TestFactory
