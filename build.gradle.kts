@@ -11,8 +11,8 @@ dependencies {
 }
 
 tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "18"
+    wrapper {
+        gradleVersion = "8.5"
     }
 
     test {
