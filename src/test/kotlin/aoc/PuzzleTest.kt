@@ -7,6 +7,12 @@ import org.junit.jupiter.api.TestFactory
 
 internal class PuzzleTest {
     private val puzzles: List<TestCase<*, *>> = listOf(
+        // Year 2020
+        TestCase(aoc.year2020.Day01, answer1 = 471019, answer2 = 103927824),
+        TestCase(aoc.year2020.Day02, answer1 = 655, answer2 = 673),
+        TestCase(aoc.year2020.Day03, answer1 = 289, answer2 = 5522401584),
+        TestCase(aoc.year2020.Day04, answer1 = 170, answer2 = 103),
+
         // Year 2022
         TestCase(aoc.year2022.Day01, answer1 = 65912, answer2 = 195625),
         TestCase(aoc.year2022.Day02, answer1 = 12645, answer2 = 11756),
