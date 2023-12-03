@@ -9,6 +9,9 @@ import org.junit.jupiter.api.TestFactory
 
 internal class PuzzleTest {
     private val puzzles: List<TestCase<*, *>> = listOf(
+        // Year 2015
+        TestCase(aoc.year2015.Day01, answer1 = 138, answer2 = 1771),
+
         // Year 2020
         TestCase(aoc.year2020.Day01, answer1 = 471019, answer2 = 103927824),
         TestCase(aoc.year2020.Day02, answer1 = 655, answer2 = 673),
