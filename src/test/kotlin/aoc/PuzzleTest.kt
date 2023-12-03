@@ -14,7 +14,8 @@ internal class PuzzleTest {
         TestCase(aoc.year2020.Day02, answer1 = 655, answer2 = 673),
         TestCase(aoc.year2020.Day03, answer1 = 289, answer2 = 5522401584),
         TestCase(aoc.year2020.Day04, answer1 = 170, answer2 = 103),
-        // Year 2020
+
+        // Year 2021
         TestCase(aoc.year2021.Day01, answer1 = 1121, answer2 = 1065),
         TestCase(aoc.year2021.Day02, answer1 = 1524750, answer2 = 1592426537),
         TestCase(aoc.year2021.Day03, answer1 = 3901196, answer2 = 4412188),
