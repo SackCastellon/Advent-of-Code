@@ -19,10 +19,10 @@ object Day01 : Puzzle<Int, Int> {
     )
 
     override fun solvePartOne(input: String): Int =
-        input.lineSequence().filterNot(String::isBlank).sumOf(::getCalibrationValue)
+        input.lineSequence().sumOf(::getCalibrationValue)
 
     override fun solvePartTwo(input: String): Int =
-        input.lineSequence().filterNot(String::isBlank).map(::processSpelling).sumOf(::getCalibrationValue)
+        input.lineSequence().map(::processSpelling).sumOf(::getCalibrationValue)
 
     private fun getCalibrationValue(string: String): Int {
         val firstDigit = string.find(Char::isDigit)!!.digitToInt()

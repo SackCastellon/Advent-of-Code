@@ -29,7 +29,7 @@ object Day02 : Puzzle<Int, Int> {
             return gameId.takeIf { isValid }
         }
 
-        return input.lineSequence().filterNot(String::isBlank).mapNotNull(::getValidGameId).sum()
+        return input.lineSequence().mapNotNull(::getValidGameId).sum()
     }
 
     override fun solvePartTwo(input: String): Int {
@@ -43,6 +43,6 @@ object Day02 : Puzzle<Int, Int> {
                 .values
                 .reduce(Int::times)
 
-        return input.lineSequence().filterNot(String::isBlank).map(::getPowerOfMinimumSet).sum()
+        return input.lineSequence().map(::getPowerOfMinimumSet).sum()
     }
 }
