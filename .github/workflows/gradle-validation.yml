@@ -1,8 +1,5 @@
 name: "Validate Gradle Wrapper"
-on:
-  push:
-    paths:
-      - 'gradle/wrapper/gradle-wrapper.jar'
+on: [ push ]
 
 jobs:
   validation:
