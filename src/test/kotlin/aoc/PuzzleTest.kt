@@ -1,5 +1,6 @@
 package aoc
 
+import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest.dynamicTest
@@ -28,16 +29,18 @@ internal class PuzzleTest {
     )
 
     @TestFactory
-    internal fun puzzles(): List<DynamicNode> = puzzles.map { testCase ->
+    internal fun puzzles(): Iterable<DynamicNode> = puzzles.groupBy { it.year }
+        .mapValues { (_, testCases) -> testCases.map(::toDayContainer) }
+        .map { (year, containers) -> toYearContainer(year, containers) }
+
+    private fun toYearContainer(year: String, containers: Iterable<DynamicNode>): DynamicContainer =
+        dynamicContainer("Year $year", containers)
+
+    private fun toDayContainer(testCase: TestCase<*, *>): DynamicContainer =
         dynamicContainer(
-            "Year ${testCase.year}", listOf(
-                dynamicContainer(
-                    "Day ${testCase.day}", listOf(
-                        dynamicTest("Part 1", testCase::testPartOne),
-                        dynamicTest("Part 2", testCase::testPartTwo)
-                    )
-                )
+            "Day ${testCase.day}", listOf(
+                dynamicTest("Part 1", testCase::testPartOne),
+                dynamicTest("Part 2", testCase::testPartTwo)
             )
         )
-    }
 }
