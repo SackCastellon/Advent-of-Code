@@ -1,5 +1,6 @@
 package aoc
 
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -37,7 +38,8 @@ internal class PuzzleTest {
     )
 
     @TestFactory
-    internal fun puzzles(): Iterable<DynamicNode> = puzzles.groupBy { it.year }
+    @DisplayName("Advent of Code")
+    internal fun adventOfCode(): Iterable<DynamicNode> = puzzles.groupBy { it.year }
         .mapValues { (_, testCases) -> testCases.map(::toDayContainer) }
         .map { (year, containers) -> toYearContainer(year, containers) }
 
