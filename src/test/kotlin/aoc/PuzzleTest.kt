@@ -11,6 +11,7 @@ internal class PuzzleTest {
     private val puzzles: List<TestCase<*, *>> = listOf(
         // Year 2015
         TestCase(aoc.year2015.Day01, answer1 = 138, answer2 = 1771),
+        TestCase(aoc.year2015.Day02, answer1 = 1606483, answer2 = 3842356),
 
         // Year 2020
         TestCase(aoc.year2020.Day01, answer1 = 471019, answer2 = 103927824),
