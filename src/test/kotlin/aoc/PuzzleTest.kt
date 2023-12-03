@@ -26,7 +26,7 @@ internal class PuzzleTest {
         TestCase(aoc.year2021.Day04, answer1 = 82440, answer2 = 20774),
         TestCase(aoc.year2021.Day05, answer1 = 5632, answer2 = 22213),
         TestCase(aoc.year2021.Day06, answer1 = 352151, answer2 = 1601616884019),
-        TestCase(aoc.year2021.Day07, answer1 = 352331, answer2 = 0),
+        TestCase(aoc.year2021.Day07, answer1 = 352331),
 
         // Year 2022
         TestCase(aoc.year2022.Day01, answer1 = 65912, answer2 = 195625),
@@ -35,7 +35,7 @@ internal class PuzzleTest {
         TestCase(aoc.year2022.Day04, answer1 = 644, answer2 = 926),
         TestCase(aoc.year2022.Day05, answer1 = "ZRLJGSCTR", answer2 = "PRTTGRFPB"),
         TestCase(aoc.year2022.Day06, answer1 = 1109, answer2 = 3965),
-        TestCase(aoc.year2022.Day08, answer1 = 1669, answer2 = 0),
+        TestCase(aoc.year2022.Day08, answer1 = 1669),
 
         // Year 2023
         TestCase(aoc.year2023.Day01, answer1 = 54597, answer2 = 54517),
@@ -54,9 +54,9 @@ internal class PuzzleTest {
 
     private fun toDayContainer(testCase: TestCase<*, *>): DynamicContainer =
         dynamicContainer(
-            "Day ${testCase.day}", listOf(
-                dynamicTest("Part 1", testCase::testPartOne),
-                dynamicTest("Part 2", testCase::testPartTwo)
+            "Day ${testCase.day}", listOfNotNull(
+                dynamicTest("Part 1", testCase::testPartOne).takeIf { testCase.hasPartOne },
+                dynamicTest("Part 2", testCase::testPartTwo).takeIf { testCase.hasPartTwo },
             )
         )
 }
