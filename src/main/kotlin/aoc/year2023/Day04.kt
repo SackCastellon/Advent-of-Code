@@ -9,7 +9,20 @@ import kotlin.math.pow
 object Day04 : Puzzle<Int, Int> {
     override fun solvePartOne(input: String): Int = input.lineSequence().map { it.toCard() }.sumOf { it.points }
 
-    override fun solvePartTwo(input: String) = TODO()
+    override fun solvePartTwo(input: String): Int {
+        val cards = input.lineSequence().map { it.toCard() }.toList()
+        val counts = cards.associateTo(hashMapOf()) { it.id to 1 }
+
+        cards.forEach { card ->
+            val nCopies = counts.getValue(card.id)
+            generateSequence(card.id, Int::inc)
+                .drop(1)
+                .take(card.matching)
+                .forEach { counts.merge(it, nCopies, Int::plus) }
+        }
+
+        return counts.values.sum()
+    }
 }
 
 private fun String.toCard(): Card {
@@ -21,5 +34,6 @@ private fun String.toCard(): Card {
 }
 
 private data class Card(val id: Int, val winning: Set<Int>, val playing: Set<Int>) {
-    val points = playing.count { it in winning }.let { if (it == 0) 0 else 2.0.pow(it - 1.0).toInt() }
+    val matching = playing.count { it in winning }
+    val points = matching.let { if (it == 0) 0 else 2.0.pow(it - 1.0).toInt() }
 }
