@@ -23,17 +23,17 @@ object Day04 : Puzzle<Int, Int> {
 
         return counts.values.sum()
     }
-}
 
-private fun String.toCard(): Card {
-    val (idStr, winningStr, playingStr) = split(':', '|').map { it.trim() }
-    val id = idStr.removePrefix("Card ").trim().toInt()
-    val winning = winningStr.splitToSequence(' ').filter { it.isNotEmpty() }.map { it.toInt() }.toSet()
-    val playing = playingStr.splitToSequence(' ').filter { it.isNotEmpty() }.map { it.toInt() }.toSet()
-    return Card(id, winning, playing)
-}
+    private fun String.toCard(): Card {
+        val (idStr, winningStr, playingStr) = split(':', '|').map { it.trim() }
+        val id = idStr.removePrefix("Card ").trim().toInt()
+        val winning = winningStr.splitToSequence(' ').filter { it.isNotEmpty() }.map { it.toInt() }.toSet()
+        val playing = playingStr.splitToSequence(' ').filter { it.isNotEmpty() }.map { it.toInt() }.toSet()
+        return Card(id, winning, playing)
+    }
 
-private data class Card(val id: Int, val winning: Set<Int>, val playing: Set<Int>) {
-    val matching = playing.count { it in winning }
-    val points = matching.let { if (it == 0) 0 else 2.0.pow(it - 1.0).toInt() }
+    private data class Card(val id: Int, val winning: Set<Int>, val playing: Set<Int>) {
+        val matching = playing.count { it in winning }
+        val points = matching.let { if (it == 0) 0 else 2.0.pow(it - 1.0).toInt() }
+    }
 }

@@ -40,6 +40,6 @@ object Day05 : Puzzle<Long, Long> {
     }
 
     override fun solvePartTwo(input: String): Long = TODO()
-}
 
-private data class Mapping(val dstStart: Long, val srcStart: Long, val length: Long)
+    private data class Mapping(val dstStart: Long, val srcStart: Long, val length: Long)
+}
