@@ -7,22 +7,13 @@ import kotlin.math.min
  * [Day 13 - Advent of Code 2023](https://adventofcode.com/2023/day/13)
  */
 object Day13 : Puzzle<Int, Int> {
+    override fun solvePartOne(input: String): Int = solve(input, ::getLineOfReflection)
 
-    override fun solvePartOne(input: String): Int = input.split("\n\n")
-        .map { it.lines().map(String::toList) }
-        .sumOf { rows ->
-            val linesAbove = getLineOfReflection(rows)
-            val linesLeft = getLineOfReflection(rows.transposed())
-            linesAbove?.let { it * 100 } ?: linesLeft!!
-        }
+    override fun solvePartTwo(input: String): Int = solve(input, ::getLineOfReflectionWithOneChange)
 
-    override fun solvePartTwo(input: String): Int = input.split("\n\n")
+    private fun solve(input: String, process: (List<List<Char>>) -> Int?) = input.split("\n\n")
         .map { it.lines().map(String::toList) }
-        .sumOf { rows ->
-            val linesLeft = getLineOfReflectionWithOneChange(rows.transposed())
-            val linesAbove = getLineOfReflectionWithOneChange(rows)
-            linesLeft ?: (linesAbove!! * 100)
-        }
+        .sumOf { rows -> process(rows.transposed()) ?: (process(rows)!! * 100) }
 
     private fun getLineOfReflection(input: List<List<Char>>): Int? =
         (1..input.lastIndex).firstNotNullOfOrNull { index ->
