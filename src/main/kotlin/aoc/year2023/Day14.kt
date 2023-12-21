@@ -1,6 +1,7 @@
 package aoc.year2023
 
 import aoc.Puzzle
+import aoc.utils.transposed
 
 /**
  * [Day 14 - Advent of Code 2023](https://adventofcode.com/2023/day/14)
@@ -19,12 +20,6 @@ object Day14 : Puzzle<Int, Int> {
         .sumOf { it.mapIndexedNotNull { index, char -> (index + 1).takeIf { char == 'O' } }.sum() }
 
     override fun solvePartTwo(input: String): Int = TODO()
-
-    private fun <T> List<List<T>>.transposed(): List<List<T>> {
-        val cols = this[0].size
-        val rows = size
-        return List(cols) { j -> List(rows) { i -> this[i][j] } }
-    }
 
     private fun <T> List<T>.split(delimiter: T): List<List<T>> =
         mapIndexedNotNullTo(sortedSetOf(-1, size)) { index, element -> index.takeIf { element == delimiter } }

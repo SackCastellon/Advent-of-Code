@@ -1,6 +1,7 @@
 package aoc.year2023
 
 import aoc.Puzzle
+import aoc.utils.transposed
 import kotlin.math.min
 
 /**
@@ -31,10 +32,4 @@ object Day13 : Puzzle<Int, Int> {
             val changesNeeded = firstHalf.zip(secondHalf).sumOf { (a, b) -> a.zip(b).count { (a, b) -> a != b } }
             index.takeIf { changesNeeded == 1 }
         }
-
-    private fun <T> List<List<T>>.transposed(): List<List<T>> {
-        val cols = this[0].size
-        val rows = size
-        return List(cols) { j -> List(rows) { i -> this[i][j] } }
-    }
 }
