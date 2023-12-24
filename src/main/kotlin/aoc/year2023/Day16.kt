@@ -8,23 +8,40 @@ import aoc.Puzzle
 object Day16 : Puzzle<Int, Int> {
     override fun solvePartOne(input: String): Int {
         val layout = input.toLayout()
-        val visited = hashSetOf<Beam>()
-
         val beam = Beam(Point(0, 0), Direction.RIGHT)
-
-        fun doStep(beam: Beam) {
-            if (beam in visited) return
-            val component = layout[beam.point] ?: return
-            visited.add(beam)
-            component.advanceBeam(beam).forEach(::doStep)
-        }
-
-        doStep(beam)
-
-        return visited.map { it.point }.distinct().count()
+        return getEnergizedTiles(layout, beam)
     }
 
-    override fun solvePartTwo(input: String): Int = TODO()
+    override fun solvePartTwo(input: String): Int {
+        val layout = input.toLayout()
+        val (lastX, lastY) = input.lines().let { it.first().lastIndex to it.lastIndex }
+
+        return sequence {
+            // Top row
+            yieldAll((0..lastX).asSequence().map { x -> Beam(Point(x = x, y = 0), Direction.DOWN) })
+            // Bottom row
+            yieldAll((0..lastX).asSequence().map { x -> Beam(Point(x = x, y = lastY), Direction.UP) })
+            // Left-most column
+            yieldAll((0..lastY).asSequence().map { y -> Beam(Point(x = 0, y = y), Direction.RIGHT) })
+            // Right-most column
+            yieldAll((0..lastY).asSequence().map { y -> Beam(Point(x = lastX, y = y), Direction.LEFT) })
+        }.maxOf { beam -> getEnergizedTiles(layout, beam) }
+    }
+
+    private fun getEnergizedTiles(layout: Map<Point, Component>, start: Beam): Int {
+        val existingBeams = hashSetOf<Beam>()
+
+        fun doBounce(beam: Beam) {
+            if (beam in existingBeams) return
+            val component = layout[beam.point] ?: return
+            existingBeams.add(beam)
+            component.bounce(beam).forEach(::doBounce)
+        }
+
+        doBounce(start)
+
+        return existingBeams.map(Beam::point).distinct().count()
+    }
 
     private fun String.toLayout(): Map<Point, Component> {
         val lines = lines()
@@ -48,7 +65,7 @@ object Day16 : Puzzle<Int, Int> {
 
     private enum class Component(private val symbol: Char) {
         EMPTY_SPACE('.') {
-            override fun advanceBeam(beam: Beam): List<Beam> {
+            override fun bounce(beam: Beam): List<Beam> {
                 val direction = beam.direction
                 val point = beam.point
                 val nextPoint = when (direction) {
@@ -62,7 +79,7 @@ object Day16 : Puzzle<Int, Int> {
             }
         },
         MIRROR_UP('/') {
-            override fun advanceBeam(beam: Beam): List<Beam> {
+            override fun bounce(beam: Beam): List<Beam> {
                 val direction = beam.direction
                 val point = beam.point
                 val nextBeam = when (direction) {
@@ -76,7 +93,7 @@ object Day16 : Puzzle<Int, Int> {
             }
         },
         MIRROR_DOWN('\\') {
-            override fun advanceBeam(beam: Beam): List<Beam> {
+            override fun bounce(beam: Beam): List<Beam> {
                 val direction = beam.direction
                 val point = beam.point
                 val nextBeam = when (direction) {
@@ -90,7 +107,7 @@ object Day16 : Puzzle<Int, Int> {
             }
         },
         SPLITTER_VERTICAL('|') {
-            override fun advanceBeam(beam: Beam): List<Beam> {
+            override fun bounce(beam: Beam): List<Beam> {
                 val direction = beam.direction
                 val point = beam.point
                 return when (direction) {
@@ -104,7 +121,7 @@ object Day16 : Puzzle<Int, Int> {
             }
         },
         SPLITTER_HORIZONTAL('-') {
-            override fun advanceBeam(beam: Beam): List<Beam> {
+            override fun bounce(beam: Beam): List<Beam> {
                 val direction = beam.direction
                 val point = beam.point
                 return when (direction) {
@@ -118,7 +135,7 @@ object Day16 : Puzzle<Int, Int> {
             }
         };
 
-        abstract fun advanceBeam(beam: Beam): List<Beam>
+        abstract fun bounce(beam: Beam): List<Beam>
 
         companion object {
             private val cache = entries.associateBy { it.symbol }
