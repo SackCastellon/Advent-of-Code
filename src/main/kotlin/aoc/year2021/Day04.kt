@@ -7,10 +7,10 @@ import aoc.Puzzle
  */
 object Day04 : Puzzle<Int, Int> {
     override fun solvePartOne(input: String): Int {
-        val split = input.split("\n\n")
+        val split = input.split(Regex("(\\r?\\n){2}"))
 
         val boards = split.drop(1)
-            .map { it.split(" ", "\n").mapNotNull(String::toIntOrNull).associateWithTo(linkedMapOf()) { false } }
+            .map { it.split(Regex("\\s")).mapNotNull(String::toIntOrNull).associateWithTo(linkedMapOf()) { false } }
 
         split.first().splitToSequence(",").map(String::toInt).forEach { n ->
             for (b in boards) {
@@ -26,10 +26,10 @@ object Day04 : Puzzle<Int, Int> {
     }
 
     override fun solvePartTwo(input: String): Int {
-        val split = input.split("\n\n")
+        val split = input.split(Regex("(\\r?\\n){2}"))
 
         val boards = split.drop(1)
-            .map { it.split(" ", "\n").mapNotNull(String::toIntOrNull).associateWithTo(linkedMapOf()) { false } }
+            .map { it.split(Regex("\\s")).mapNotNull(String::toIntOrNull).associateWithTo(linkedMapOf()) { false } }
             .toMutableList()
 
         split.first().splitToSequence(",").map(String::toInt).forEach { n ->

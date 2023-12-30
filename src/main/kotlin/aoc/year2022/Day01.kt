@@ -12,5 +12,5 @@ object Day01 : Puzzle<Int, Int> {
     override fun solvePartTwo(input: String): Int =
         input.parse().map { it.lines().sumOf(String::toInt) }.sortedDescending().take(3).sum()
 
-    private fun String.parse() = split("\n\n")
+    private fun String.parse() = split(Regex("(\\r?\\n){2}"))
 }

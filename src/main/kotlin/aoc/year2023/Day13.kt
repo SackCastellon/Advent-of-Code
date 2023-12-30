@@ -12,7 +12,7 @@ object Day13 : Puzzle<Int, Int> {
 
     override fun solvePartTwo(input: String): Int = solve(input, ::getLineOfReflectionWithOneChange)
 
-    private fun solve(input: String, process: (List<List<Char>>) -> Int?) = input.split("\n\n")
+    private fun solve(input: String, process: (List<List<Char>>) -> Int?) = input.split(Regex("(\\r?\\n){2}"))
         .map { it.lines().map(String::toList) }
         .sumOf { rows -> process(rows.transposed()) ?: (process(rows)!! * 100) }
 

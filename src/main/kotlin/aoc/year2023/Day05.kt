@@ -7,7 +7,7 @@ import aoc.Puzzle
  */
 object Day05 : Puzzle<Long, Long> {
     override fun solvePartOne(input: String): Long {
-        val sections = input.split("\n\n")
+        val sections = input.split(Regex("(\\r?\\n){2}"))
         val seeds = sections.first().removePrefix("seeds: ").split(' ').map { it.toLong() }
 
         return sections.drop(1)
