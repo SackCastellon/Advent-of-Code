@@ -58,6 +58,7 @@ internal class PuzzleTest {
         TestCase(aoc.year2024.Day01, answer1 = 1189304, answer2 = 24349736),
         TestCase(aoc.year2024.Day02, answer1 = 564),
         TestCase(aoc.year2024.Day03, answer1 = 173517243, answer2 = 100450138),
+        TestCase(aoc.year2024.Day05, answer1 = 7074, answer2 = 4828),
     )
 
     @TestFactory
